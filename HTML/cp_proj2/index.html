@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Fun with Frequencies</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Hongjian Zhang" />
+
+	<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+
+	<link rel="stylesheet" href="css/style.css">
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+
+    <!-- Main JS (Do not remove) -->
+    <script src="js/main.js"></script>
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+
+    </head>
+	<body>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav text-center">
+								<li class="active"><a href="index.html"><span>Fun with Frequencies</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+		  </div>
+		</header>
+		<!-- END: header -->
+		<section id="intro" style="margin-bottom: 30px">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+						<div class="intro animate-box">
+							<h1>Hybrid, stack and blend images through frequencies wrangling.</h2>
+                        </div>
+					</div>
+				</div>
+                 <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Introduction</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    This project deals with transforming images with a variety of convolutions filters, primarily Gaussian filters and Laplacian filters as well as algorithms to blend images together.
+                </div>
+			</div>
+		</section>
+		<section id="work">
+			<div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Sharpening Image</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    We apply the unsharpe mask to sharpen an image. It is simply done by adding the difference of the original image and the gaussian-blurred image back to the original image. The effect is that edges are magnified; in frequency domain, it means high frequencies are magnified. Here is an example of applying sharpening to Drogon and Ned.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    <b>Input:</b> Each processed input consists of 3 glass plate images, corresponding to read, green and blue channels, as follows:<br>
+                    <div class="approach col-md-12 animate-box"></div>
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="inputs/red.jpg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="inputs/green.jpg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="inputs/blue.jpg" style="max-width: 95%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Red Channel</th>
+                                <th style="text-align: center">Green Channel</th>
+                                <th style="text-align: center">Blue Channel</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <b>Align:</b> The most naive approach is to simply stack the channels. The result would be blurry. A better approach is to anchor a channel and try to align the other two channels to this "anchor" channel. To align, we search over a window of displacements, and evaluate some "distance function" for the aligned image and the anchor image. Two popular distance functions are: 
+                    <div class="approach col-md-12 animate-box"></div>
+                    <div align="center"><p>L2 norm: $\|image1 - image2\|_2^2$</p></div>
+                    <div align="center"><p>Normalized Cross-Correlation (NCC): ${image1 \over \|image1\|_2^2} \cdot {image2 \over \|image2\|_2^2}$</p></div>
+                    <div class="approach col-md-12 animate-box"></div>
+                    <b>Crop:</b> We then crop 15% from each side to remove the black edges. More advanced cropping techniques including running edge detector then cropping areas with continuous large area of edges.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <h2 align='center'>Gallery</h2>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="outputs/cathedral.jpg" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/monastery.jpg" style="max-width: 95%"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Cathedral</th>
+                            <th style="text-align: center">Monastery</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="outputs/nativity.jpg" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/settlers.jpg" style="max-width: 95%"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Nativity</th>
+                            <th style="text-align: center">Settlers</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Large Images</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    For large images, it is extremely slow and inefficient to perform the window method over a large set of displacements. Therefore we apply the pyramid method. We downscale the image, and use a small window size to align the coarse image; with that alignment, we double the scale of the image, so on and so forth. For each scale, we only use a small window; however we are moving to a more accurate alignment gradually over the scales. An image illustration is below:
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box" align="center">
+                        <img src="inputs/pyramid.png" style="max-width: 95%">
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <h2 align='center'>Gallery</h2>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/train.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/turkmen.jpg" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Train</th>
+                            <th style="text-align: center">Turkman</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/village.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/self_portrait.jpg" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Village</th>
+                            <th style="text-align: center">Self Portrait (Cropped)</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Advanced Features</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    In the case of Emir of Bukhara, the channels do not actually have the same brightness values. This posts a significant challenge, since RGB intensity does not provide a good feature. Running our naive pyramid implement would yield bad result
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/emir_bad.jpg" style="max-width: 50%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Bad Emir</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    Instead of looking at RGB feature, I used canny edge detector to get edge matrix for each of the channel glass. Using edge information as feature, I performed the same pyramid matching method on the edge matrices, and obtained the best displacements, and using them to align. As can be observed, now the alignment is much better.
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/emir.jpg" style="max-width: 50%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Good Emir (Cropped)</th>
+                        </tr>
+                    </table>
+                </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Auto Constrast</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    To make the color more contrasting, we look at the exposure histogram of the image, and try to make the distribution as uniform as possible.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/icon.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/icon_contr.jpg" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Before</th>
+                            <th style="text-align: center">After</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/self_portrait.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/self_portrait_contr.jpg" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Before</th>
+                            <th style="text-align: center">After</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/emir.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/emir_contr.jpg" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Before</th>
+                            <th style="text-align: center">After</th>
+                        </tr>
+                    </table>
+                </div>
+
+        </section>
+	</div>
+	<!-- END: box-wrap -->
+	</body>
+</html>
+
