@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lightfield Camera</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Hongjian Zhang" />
+
+	<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../cp_assets/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="../cp_assets/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="../cp_assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="../cp_assets/css/style.css">
+
+    <!-- jQuery -->
+    <script src="../cp_assets/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="../cp_assets/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="../cp_assets/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="../cp_assets/js/jquery.waypoints.min.js"></script>
+
+    <!-- Main JS (Do not remove) -->
+    <script src="../cp_assets/js/main.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="../cp_assets/js/modernizr-2.6.2.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+
+    </head>
+	<body>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav text-center">
+								<li class="active"><a href="index.html"><span>Lightfield Camera</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+		  </div>
+		</header>
+		<!-- END: header -->
+        <section id="intro" style="margin-bottom: 30px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+                        <div class="intro animate-box">
+                            <h1>Depth Refocusing and Aperture Adjustment with Light Field Data</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Introduction</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    This project demonstrates how simple operations like shifting and averaging can achieve complex effects. The work is done on the <a href="http://lightfield.stanford.edu/lfs.html">Stanford Light Field Archive</a>, that has some sample datasets comprising of multiple images taken over a regularly spaced grid
+                </div>
+            </div>
+        </section>
+		<section id="intro" style="margin-bottom: 30px">
+			<div class="container">
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Depth Refocusing</h2>
+                </div>
+                <div class="approach animate-box">
+                    <div class="approach col-md-12 animate-box">
+                        The idea is simple. Objects that are far away from the camera do not vary their position significantly, when the camera moves around while keeping the optical axis direction unchanged. The nearby objects, on the other hand, vary their position significantly across images. Therefore averaging all the images in the grid without any shifting will produce an image which is sharp around the far-away objects but blurry around the nearby ones. Similarly, shifting the images 'appropriately' and then averaging allows one to focus on object at different depths.
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="outputs/chess.gif" style="max-width: 100%"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Sequence of focusing on different depths</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <div class="approach col-md-12 animate-box">
+                        Here is the break down of different focus depths.
+                    </div>
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="outputs/seq/Depth_refocus_chess_-3.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/Depth_refocus_chess_-2.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/Depth_refocus_chess_-1.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/Depth_refocus_chess_0.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/Depth_refocus_chess_1.png" style="max-width: 95%"></th>
+
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">C=-3</th>
+                            <th style="text-align: center">C=-2</th>
+                            <th style="text-align: center">C=-1</th>
+                            <th style="text-align: center">C=0</th>
+                            <th style="text-align: center">C=1</th>
+                        </tr>
+                    </table>
+                </div>
+			</div>
+		</section>
+		<section id="work">
+			<div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Aperature Adjustment</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    The idea is also quite simple. Averaging a large number of images sampled over the grid perpendicular to the optical axis mimics a camera with a much larger aperture. Using fewer images results in an image that mimics a smaller aperture. Given radius, I average all the images within the radius of the center camera. By adjusting the radius, I could adjust the aperature. 
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/lego.gif" style="max-width: 100%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Sequence of focusing on different aperatures</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="approach animate-box">
+                    <div class="approach col-md-12 animate-box">
+                        Here is the break down of different aperatures/radius.
+                    </div>
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="outputs/seq/aperture_adjust_lego_0.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/aperture_adjust_lego_1.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/aperture_adjust_lego_2.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/aperture_adjust_lego_3.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/aperture_adjust_lego_4.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/seq/aperture_adjust_lego_5.png" style="max-width: 95%"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">R=0</th>
+                            <th style="text-align: center">R=1</th>
+                            <th style="text-align: center">R=2</th>
+                            <th style="text-align: center">R=3</th>
+                            <th style="text-align: center">R=4</th>
+                            <th style="text-align: center">R=5</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+       
+	<!-- END: box-wrap -->
+    <section>
+        <div class="approach col-md-12 animate-box">
+            Note: This is a class project for CS 194-26 Image Manipulation and Computational Photography taught by Professor Alexei Efros at UC Berkeley. Full description is available <a href="https://inst.eecs.berkeley.edu/~cs194-26/fa17/hw/proj5/index.html">here</a>.
+        </div>
+    </section>
+	</body>
+</html>
+

@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Homography, Image Mosaics & Autostitching</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Hongjian Zhang" />
+
+	<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../cp_assets/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="../cp_assets/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="../cp_assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="../cp_assets/css/style.css">
+
+    <!-- jQuery -->
+    <script src="../cp_assets/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="../cp_assets/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="../cp_assets/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="../cp_assets/js/jquery.waypoints.min.js"></script>
+
+    <!-- Main JS (Do not remove) -->
+    <script src="../cp_assets/js/main.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="../cp_assets/js/modernizr-2.6.2.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+
+    </head>
+	<body>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav text-center">
+								<li class="active"><a href="index.html"><span>Homography, Image Mosaics & Autostitching</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+		  </div>
+		</header>
+		<!-- END: header -->
+        <section id="intro" style="margin-bottom: 30px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+                        <div class="intro animate-box">
+                            <h1>Homography, Image Mosaics & Autostitching</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Introduction</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    This project demonstrates how simple operations like shifting and averaging can achieve complex effects. The work is done on the <a href="http://lightfield.stanford.edu/lfs.html">Stanford Light Field Archive</a>, that has some sample datasets comprising of multiple images taken over a regularly spaced grid
+                </div>
+            </div>
+        </section>
+		<section id="intro" style="margin-bottom: 30px">
+			<div class="container">
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Homography</h2>
+                </div>
+                <div class="approach animate-box">
+                    <div class="approach col-md-12 animate-box" align="center">
+                        Given a pixel $p$ and its transformed pixel $p'$, we can set a linear system to recover the Homography $H$.
+                    </div>
+                    <div class="approach col-md-12 animate-box" align="center">
+                        $
+                        \begin{align*}
+                        p' &= H p \\
+                        \begin{bmatrix}
+                            wx \\
+                            wy \\
+                            w
+                        \end{bmatrix}
+                            &= 
+                        \begin{bmatrix}
+                            a & b & c \\
+                            d & e & f \\
+                            g & h & 1 \\
+                        \end{bmatrix}
+                        \cdot
+                        \begin{bmatrix}
+                            x \\
+                            y \\
+                            1
+                        \end{bmatrix}
+                        \end{align*}
+                        $.
+                        <br>
+                        (The bottom right of $H$ is the scaling factor which is fixed at 1.)
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    We can reformulate the linear system to solve for $a, b, c, ..., h$. Since the degree of freedom is 8, it is obvious that 4 sets of corresponding pixels $(p, p')$ will yield 8 equations, enough to solve using least squares.
+                </div>
+			</div>
+		</section>
+
+		<section id="work">
+			<div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Image Rectification</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    One of the most obvious application of homography is image rectification, essentially warping an image to "reangle" certain information. Here I ask user for at least 4 corresponding points, then solve the least squares problem to recover the homography. Here are some examples:
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="inputs/board.png" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/rect/board.jpg" style="max-width: 95%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Original Image</th>
+                                <th style="text-align: center">Rectified Image</th>
+                            </tr>
+                        </table>
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="inputs/computer.png" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/rect/computer.jpg" style="max-width: 95%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Original Image</th>
+                                <th style="text-align: center">Rectified Image</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Creating Image Mosaics</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    We can now try to stitch images together to create mosaics. For each mosaic, I keep on image unwarped and try to warp the other image using some hand-picked feature points. Here are the results:
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="inputs/autocar1.jpg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="inputs/car2.jpg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/mosaic/car.jpg" style="width: 500px"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Original Left Image</th>
+                                <th style="text-align: center">Original Right Image</th>
+                                <th style="text-align: center">Mosaic</th>
+                            </tr>
+                        </table>
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="inputs/tree1.jpg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="inputs/tree2.jpg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/mosaic/tree.jpg" style="width: 500px"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Original Left Image</th>
+                                <th style="text-align: center">Original Right Image</th>
+                                <th style="text-align: center">Mosaic</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Autostitching (Automatic Point Selection) </h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    Autostitching can be achieved by performing the following steps:
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    <b>Feature Extraction:</b> Detecting corner features in an image, and then extracting a Feature Descriptor for each feature point. <br>
+                    <b>Feature Matching:</b> Matching the feature descriptors between two images. <br>
+                    <b>Compute Homography:</b> Use a robust method (RANSAC) to compute a homography.
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Feature Extraction </h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    Here I used corner as featuers as they are rotation-invariant. First I used Harris Corner Detector to find all the corners in the two images. 
+                </div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/corners/park1_all_corners.jpg" style="max-width: 100%"></th>
+                                <th style="text-align: center"><img src="outputs/corners/park2_all_corners.jpg" style="max-width: 100%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Left Image Corners</th>
+                                <th style="text-align: center">Right Image Corners</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    Since we are having too many corners, I used Adaptive Non-maximal Suppression to compute an optimal radius $r(p)$ for each corner p. Then I sorted the corners using the computed radius in descending order, and picked the first 200 corners.
+                </div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/corners/park1_chosen_corners.jpg" style="max-width: 100%"></th>
+                                <th style="text-align: center"><img src="outputs/corners/park2_chosen_corners.jpg" style="max-width: 100%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Left Image Selected Corners</th>
+                                <th style="text-align: center">Right Image Selected Corners</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    Then we created 40-by-40 patches of pixels around the selected corners, and then downsampled them to 8-by-8 patches for robustness to rotation and scale. These patches will be used as features to match.
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Feature Matching </h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    To perform matching, we find pairs of features that look similar and are thus likely to be good matches.
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">RANSAC </h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    hen, we run RANSAC with 1000 iterations and 4 random choices. In each iteration, we sample 4 pair of matched correspondences to calculate the projective transformation. Then we transform image 1 accordingly. In the end, we pick the set of points with most inliers, and use its homography and blend with picture 2 to get the mosaic. Here we also compare the results obtained from manual selections and auto selections
+                </div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/auto/park1_park2.jpg" style="max-width: 82%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Park</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/auto/tree1_tree2.jpg" style="max-width: 70%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Trees</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/auto/parking.jpg" style="max-width: 70%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Parking Lot</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+	<!-- END: box-wrap -->
+    <section>
+        <div class="approach col-md-12 animate-box">
+            Note: This is a class project for CS 194-26 Image Manipulation and Computational Photography taught by Professor Alexei Efros at UC Berkeley. Full description is available <a href="https://inst.eecs.berkeley.edu/~cs194-26/fa17/hw/proj6/partB.html">here</a>.
+        </div>
+    </section>
+	</body>
+</html>
+

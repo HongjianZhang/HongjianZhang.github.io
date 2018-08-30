@@ -1,0 +1,535 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Fun with Frequencies</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Hongjian Zhang" />
+
+	<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../cp_assets/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="../cp_assets/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="../cp_assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="../cp_assets/css/style.css">
+
+    <!-- jQuery -->
+    <script src="../cp_assets/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="../cp_assets/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="../cp_assets/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="../cp_assets/js/jquery.waypoints.min.js"></script>
+
+    <!-- Main JS (Do not remove) -->
+    <script src="../cp_assets/js/main.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="../cp_assets/js/modernizr-2.6.2.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+
+    </head>
+	<body>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav text-center">
+								<li class="active"><a href="index.html"><span>Fun with Frequencies</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+		  </div>
+		</header>
+		<!-- END: header -->
+		<section id="intro" style="margin-bottom: 30px">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+						<div class="intro animate-box">
+							<h1>Hybrid, stack and blend images through frequencies wrangling.</h2>
+                        </div>
+					</div>
+				</div>
+                 <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Introduction</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    This project deals with transforming images with a variety of convolutions filters, primarily Gaussian filters and Laplacian filters as well as algorithms to blend images together.
+                </div>
+			</div>
+		</section>
+		<section id="work">
+			<div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Sharpening Image</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/sharpen/unsharp.jpg" style="max-width: 50%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Unsharp mask</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    We apply the "unsharp mask" (illustrated above) to sharpen images. Simply add the difference of the original image and the gaussian-blurred image back to the original image. The effect is that edges are magnified; in frequency domain, it means high frequencies are magnified. Here are examples of sharpening Drogon and Ned.
+                </div>
+                <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="inputs/ned.jpg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/sharpen/ned.png" style="max-width: 95%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Before</th>
+                                <th style="text-align: center">After</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="inputs/dragon.jpeg" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/sharpen/dragon.png" style="max-width: 95%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Before</th>
+                                <th style="text-align: center">After</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Hybrid Images</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    High frequency tends to dominate perception when it is available, but, at a distance, only the low frequency (smooth) part of the signal can be seen. By blending the high frequency portion of one image with the low-frequency portion of another, you get a hybrid image that leads to different interpretations at different distances. This approach was proposed in the SIGGRAPH 2006 paper by Oliva, Torralba, and Schyns.
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    We generate the low-pass image using a gaussian filter, and the high-pass of another image by subtracting the gaussian-blurred image from itself. Then we simply add these 2 images together to get the hybrid. Here is an example of combining low frequency part of Bran with the high frequency part of the Night King. We see Bran from far away, but when we get closer, we realize it is the Night King!
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="inputs/bran.jpg" style="max-width: 70%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="inputs/night_king.jpg" style="max-width: 70%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Bran</th>
+                            <th style="text-align: center">Night King</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/hybrid/bran_night.png" style="max-width: 100%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Hybrid</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">More interesting results</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    This technique gets more interesting when applied across races and gender.
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="inputs/avg_asian_man.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="inputs/avg_white_man.jpg" style="max-width: 87%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/hybrid/male.jpg" style="max-width: 100%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/hybrid/male_reverse.jpg" style="max-width: 97%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Avg Chinese Male</th>
+                            <th style="text-align: center">Avg American Male</th>
+                            <th style="text-align: center">Low Pass: American Male</th>
+                            <th style="text-align: center">Low Pass: Chinese Male</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="inputs/avg_asian_woman.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="inputs/avg_white_woman.jpg" style="max-width: 92%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/hybrid/female.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/hybrid/female_reverse.jpg" style="max-width: 97%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Avg Chinese Female</th>
+                            <th style="text-align: center">Avg Swedish Female</th>
+                            <th style="text-align: center">Low Pass: Swedish Female</th>
+                            <th style="text-align: center">Low Pass: Chinese Female</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    In the above examples, when looking from close distances at the third images in each row, the low pass dominates, and displays white male and female, while the fourth images look asian; however when looking from far away, the high pass dominates, and the racial profile gets reversed.
+                </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Gaussian Stacks & Laplacian Stacks</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    Gaussian and Laplacian stacks are similar to pyramids. The different between a stack and a pyramid is that in each level of the pyramid the image is downsampled, so that the result gets smaller and smaller. In a stack the images are never downsampled so the results are all the same dimension as the original image, and can all be saved in one 3D matrix (if the original image was a grayscale image). We use increasingly larger radius for the Gaussian filtering at each level. The radius at each level of the stack should be doubled in each level. For example, the famous painting of Lincoln and Gala by Salvador Dali (shown below) can be deconstructed into the following Gaussian and Laplacian stacks.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/gaussian_cutoff_1.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/gaussian_cutoff_2.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/gaussian_cutoff_4.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/gaussian_cutoff_8.png" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Gaussian Stacks Level 0</th>
+                            <th style="text-align: center">Gaussian Stacks Level 1</th>
+                            <th style="text-align: center">Gaussian Stacks Level 2</th>
+                            <th style="text-align: center">Gaussian Stacks Level 3</th>
+                        </tr>
+                    </table>
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_cutoff_1.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_cutoff_2.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_cutoff_4.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_cutoff_8.png" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Laplacian Stacks Level 0</th>
+                            <th style="text-align: center">Laplacian Stacks Level 1</th>
+                            <th style="text-align: center">Laplacian Stacks Level 2</th>
+                            <th style="text-align: center">Laplacian Stacks Level 3</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    One of the benefits of generating Gaussian and Laplacian stacks is that we can now easily observe both low frequency and high frequency from normal distance. 
+                </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Multiresolution Blending</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    In this part, we try to blend two images seamlessly using a multi resolution blending as described in the 1983 paper by Burt and Adelson. An image spline is a smooth seam joining two image together by gently distorting them. Multiresolution blending computes a gentle seam between the two images seperately at each band of image frequencies, resulting in a much smoother seam. In the following example, I performed a vertical seam of Jon Snow and Daenarys Targaryen.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="inputs/jon.jpg" style="max-width: 80%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="inputs/danny.jpg" style="max-width: 80%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Jon</th>
+                            <th style="text-align: center">Daenarys</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    <h3>Laplacian Stacks for Jon Snow</h3>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_jon_10.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_jon_20.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_jon_40.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_jon_80.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_jon_160.png" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Laplacian Stacks Level 0</th>
+                            <th style="text-align: center">Laplacian Stacks Level 1</th>
+                            <th style="text-align: center">Laplacian Stacks Level 2</th>
+                            <th style="text-align: center">Laplacian Stacks Level 3</th>
+                            <th style="text-align: center">Laplacian Stacks Level 4</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    <h3>Laplacian Stacks for Daenarys Targaryen</h3>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_danny_10.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_danny_20.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_danny_40.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_danny_80.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/laplacian_danny_160.png" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Laplacian Stacks Level 0</th>
+                            <th style="text-align: center">Laplacian Stacks Level 1</th>
+                            <th style="text-align: center">Laplacian Stacks Level 2</th>
+                            <th style="text-align: center">Laplacian Stacks Level 3</th>
+                            <th style="text-align: center">Laplacian Stacks Level 4</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    <h3>Blended Laplacian Stacks</h3>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/blended_10.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/blended_20.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/blended_40.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/blended_80.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/stacks/blended_160.png" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Laplacian Stacks Level 0</th>
+                            <th style="text-align: center">Laplacian Stacks Level 1</th>
+                            <th style="text-align: center">Laplacian Stacks Level 2</th>
+                            <th style="text-align: center">Laplacian Stacks Level 3</th>
+                            <th style="text-align: center">Laplacian Stacks Level 4</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    When we combine corresponding images in each Laplacian level, the boundary between two images is smoothed out. We then simply add the low pass of the original two pictures, to the combined blended Laplacian stacks to generate the final output.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/blend/dumb_blended.png" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/blend/blended.png" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Naive Blend</th>
+                            <th style="text-align: center">Multiresolution Blend</th>
+                        </tr>
+                    </table>
+                </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Gradient Domain Fushion</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    In this part, I try to seamlessly blend an object or texture from a source image into a target image. The simplest method would be to just copy and paste the pixels from one image directly into the other. Unfortunately, this will create very noticeable seams, even if the backgrounds are well-matched. Here we use the insight, that people often care much more about the gradient of an image than the overall intensity. So we can set up an optimization problem as finding values for the target pixels that maximally preserve the gradient of the source region without changing any of the background pixels. Note that we are making a deliberate decision here to ignore the overall intensity! So something green might become red, but it still looks okay. We formulate the following optimization problem:
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    $v = arg \min_{v} \sum_{i \in S, j \in N_i \cap S} ((v_i-v_j) - (s_i - s_j))^2 + \sum_{i \in S, j \in N_i \cap \neg S} ((v_i-t_j) - (s_i - s_j))^2$
+                </div>
+                 <div class="approach col-md-12 animate-box" align="center">
+                    Here, each "i" is a pixel in the source region "S", and each "j" is a 4-neighbor of "i". Each summation guides the gradient values to match those of the source region. In the first summation, the gradient is over two variable pixels; in the second, one pixel is variable and one is in the fixed target region. This method is called "Poisson Blending".
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <b>Step 1.</b> Given a source image and a target image, we manually select the boundaries of a region in the source image and specify a location in the target image where it should be blended. Then, transform (e.g., translate) the source image so that indices of pixels in the source and target regions correspond. Ideally, the background of the object in the source region and the surrounding area of the target region will be of similar color.<p></p>
+                    <b>Step 2.</b> Solve the above-mentioned optimization problem.<p></p>
+                    <b>Step 3.</b> Copy the solved values v_i into your target image. For RGB images, process each channel separately.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="inputs/john_snow.jpg" style="max-width: 100%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="inputs/hos.jpg" style="max-width: 75%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Jon Snow</th>
+                            <th style="text-align: center">Geralt of Rivia</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/blend/jon1.jpg" style="max-width: 85%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Jon Snow in Iris's dream</th>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    Here I try to blend Jon Snow into a scene in the video game, Witcher 3. The scenes' colors are not similar, but as we see above, the algorithm still does its best to blend the two images to a semi-believable state. However the result is still not perfect. For example, Jon Snow's face is turned to a weird color so that its gradients become similar to the background. In the following example, I demonstrate a better result, when blending images with similar backgrounds and tones. 
+                </div>
+                <div class="approach animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/blend/poisson.jpg" style="max-width: 100%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">A mothership blended into a medieval painting</th>
+                    </table>
+                </div>
+        </section>
+	</div>
+	<!-- END: box-wrap -->
+    <section>
+        <div class="approach col-md-12 animate-box">
+            Note: This is a class project for CS 194-26 Image Manipulation and Computational Photography taught by Professor Alexei Efros at UC Berkeley. Full description is available <a href="https://inst.eecs.berkeley.edu/~cs194-26/fa17/hw/proj3/index.html">here</a>.
+        </div>
+    </section>
+	</body>
+</html>
+

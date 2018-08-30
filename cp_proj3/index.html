@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Face Morphing</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Hongjian Zhang" />
+
+	<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../cp_assets/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="../cp_assets/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="../cp_assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="../cp_assets/css/style.css">
+
+    <!-- jQuery -->
+    <script src="../cp_assets/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="../cp_assets/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="../cp_assets/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="../cp_assets/js/jquery.waypoints.min.js"></script>
+
+    <!-- Main JS (Do not remove) -->
+    <script src="../cp_assets/js/main.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="../cp_assets/js/modernizr-2.6.2.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+
+    </head>
+	<body>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav text-center">
+								<li class="active"><a href="index.html"><span>Face Morphing</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+		  </div>
+		</header>
+		<!-- END: header -->
+		<section id="intro" style="margin-bottom: 30px">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+						<div class="intro animate-box">
+							<h1>Morph your face to someone else's</h2>
+                        </div>
+					</div>
+				</div>
+                 <div class="approach col-md-12 animate-box"></div>
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Introduction</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    Morphing essentially consists of two parts.<br>
+                    <b>Color:</b> The morphing of color is simply done via cross dissolve.<br>
+                    <b>Shape:</b> The morphing of shape is more complicated, and requires image warping techniques. We start off asking for some corresponding points of image A and B, typically eyes, ears, mouth, chins, etc. 
+                </div>
+                <div class="approach animate-box">
+                    <div class="approach col-md-12 animate-box">
+                        In this example, I want to morph my face (left image) onto Sandy's face (right image).
+                    </div>
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="inputs/me.jpg" style="max-width: 80%"></th>
+                            <th style="text-align: center"><img src="inputs/sandy.jpg" style="max-width: 80%"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Me</th>
+                            <th style="text-align: center">Sandy</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <div class="approach col-md-12 animate-box">
+                        I first defined some corresponding points. Then I performed triangulation. In order not to generate extremely thin triangles, I used Delauney triangulation. The points and triangulation are show below.
+                    </div>
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="outputs/tri/me_points.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/tri/sandy_points.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/tri/me_tri.png" style="max-width: 95%"></th>
+                            <th style="text-align: center"><img src="outputs/tri/sandy_tri.png" style="max-width: 95%"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">My points</th>
+                            <th style="text-align: center">Sandy's points</th>
+                            <th style="text-align: center">My triangulation</th>
+                            <th style="text-align: center">Sandy's triangulation</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach animate-box">
+                    <div class="approach col-md-12 animate-box">
+                        We now simply warp the triangles in to the correct place. Here both the gif of the morph sequence and the midway face are shown.
+                    </div>
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center"><img src="outputs/me_sandy/mid.jpg" style="max-width: 60%"></th>
+                            <th style="text-align: center"><img src="outputs/me_sandy/seq.gif" style="max-width: 97%"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Midway Face</th>
+                            <th style="text-align: center">Sequence</th>
+                        </tr>
+                    </table>
+                </div>
+			</div>
+		</section>
+		<section id="work">
+			<div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Mean Face of Population</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    First we generate the average "eigenface" from the following dataset of <a href="http://www2.imm.dtu.dk/~aam/datasets/datasets.html">Danish computer scientists</a>, using image wrapping. Here are the average male and female faces.
+                </div>
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/danish_mean/male_eigenface.jpg" style="max-width: 80%"></th>
+                                <th style="text-align: center"><img src="outputs/danish_mean/female_eigenface.jpg" style="max-width: 80%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Male eigenface</th>
+                                <th style="text-align: center">female eigenface</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    Now I try to morph one of danish computer scientists and me on to the eigenface. Here is what it looks like:
+                </div>   
+                <div class="approach col-md-12 animate-box">                 
+                    <div class="approach animate-box">
+                        <table align="center">
+                            <tr>
+                                <th style="text-align: center"><img src="outputs/danish/male.gif" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/danish/female.gif" style="max-width: 95%"></th>
+                                <th style="text-align: center"><img src="outputs/danish/me.gif" style="max-width: 70%"></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Male</th>
+                                <th style="text-align: center">Female</th>
+                                <th style="text-align: center">Me</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">Caricature</h2>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                    Now that we calculated the Danish population mean, we can add or subtract weighted difference between points of my face and corresponding points of the mean face. Using an alpha of 0.5 and a distortion of 0.8, we get the results on the right. (Problem with the eyes is due to bad point selection....)
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/cari/more_danish.jpg" style="max-width: 70%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/cari/less_danish.jpg" style="max-width: 70%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">More Danish</th>
+                            <th style="text-align: center">Less Danish</th>
+                        </tr>
+                    </table>
+                </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="approach col-md-12 animate-box">
+                    <h2 align="center">More interesting results</h2>
+                </div>
+                <div class="approach col-md-12 animate-box" align="center">
+                    This technique gets more interesting when applied across races and gender. Here I morph my face to the average American male face and average American female face.
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+                <div class="approach animate-box">
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/racegender/male_american.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/racegender/male.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/racegender/male.gif" style="max-width: 100%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Average male American face</th>
+                            <th style="text-align: center">Midway face</th>
+                            <th style="text-align: center">Sequence</th>
+                        </tr>
+                    </table>
+                    <table align="center">
+                        <tr>
+                            <th style="text-align: center">
+                                <img src="outputs/racegender/female_american.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/racegender/female.jpg" style="max-width: 95%">
+                            </th>
+                            <th style="text-align: center">
+                                <img src="outputs/racegender/female.gif" style="max-width: 95%">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center">Average female American face</th>
+                            <th style="text-align: center">Midway face</th>
+                            <th style="text-align: center">Sequence</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="approach col-md-12 animate-box">
+                </div>
+        </section>
+
+       
+	<!-- END: box-wrap -->
+    <section>
+        <div class="approach col-md-12 animate-box">
+            Note: This is a class project for CS 194-26 Image Manipulation and Computational Photography taught by Professor Alexei Efros at UC Berkeley. Full description is available <a href="https://inst.eecs.berkeley.edu/~cs194-26/fa17/hw/proj4/index.html">here</a>.
+        </div>
+    </section>
+	</body>
+</html>
+
